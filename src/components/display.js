@@ -1,95 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from "react";
 
 function Scheduler() {
-  const [teachers, setTeachers] = useState([]);
-  const [exams, setExams] = useState([]);
+  const [exams, setExams] = useState(() => {
+    const storedExams = localStorage.getItem("exams");
+    return storedExams ? JSON.parse(storedExams) : [];
+  });
 
-  useEffect(() => {
-    // Get teacher and exam data from local storage
-    const storedTeachers = JSON.parse(localStorage.getItem('teachers'));
-    const storedExams = JSON.parse(localStorage.getItem('exams'));
+  const [teachers, setTeachers] = useState(() => {
+    const storedTeachers = localStorage.getItem("teachers");
+    return storedTeachers ? JSON.parse(storedTeachers) : [];
+  });
 
-    if (storedTeachers && Array.isArray(storedTeachers)) {
-      setTeachers(storedTeachers);
+  const [schedule, setSchedule] = useState([]);
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const scheduleExams = () => {
+    const teacherList = JSON.parse(localStorage.getItem("teachers"));
+    const examList = exams.slice();
+
+    // Shuffle the exam list
+    shuffle(examList);
+
+    // Divide the teacher list into groups of 5
+    const teacherGroups = [];
+    while (teacherList.length > 0) {
+      teacherGroups.push(teacherList.splice(0, 5));
     }
 
-    if (storedExams && Array.isArray(storedExams)) {
-      setExams(storedExams);
-    }
-  }, []);
+    // Shuffle the teacher groups
+    shuffle(teacherGroups);
 
-  const assignInvigilators = () => {
-    const invigilators = {};
-    const teacherDuties = {};
-  
-    // Initialize teacherDuties object with 0 duties for each teacher
-    for (const teacher of teachers) {
-      teacherDuties[teacher.id] = 0;
-    }
-  
-    // Iterate over each exam and assign invigilators
-    for (const exam of exams) {
-      let assigned = 0;
-      invigilators[exam.name] = [];
-  
-      // Iterate over teachers and assign to exam
-      for (const teacher of teachers) {
-        const hasOverlappingDuties = invigilators[exam.name].some(
-          (assignedTeacher) =>
-            assignedTeacher.dutyDate === exam.date && assignedTeacher.dutyTime === exam.time
-        );
-  
-        if (!hasOverlappingDuties && teacherDuties[teacher.id] < Math.ceil(exams.length / teachers.length)) {
-          invigilators[exam.name].push({ teacher: teacher.name, dutyDate: exam.date, dutyTime: exam.time });
-          assigned++;
-          teacherDuties[teacher.id]++;
-        }
-  
-        if (assigned >= 5) {
-          break;
-        }
+    // Assign teachers to exams
+    const examSchedule = examList.map((exam) => {
+      const teachers = [];
+      for (let i = 0; i < 5; i++) {
+        const teacherGroup = teacherGroups[i % teacherGroups.length];
+        const teacherIndex = Math.floor(Math.random() * teacherGroup.length);
+        const teacher = teacherGroup[teacherIndex];
+        teachers.push(teacher);
       }
-    }
-  
-    return invigilators;
-  };
-  
+      return { exam, teachers };
+    });
 
-  const handleSchedule = () => {
-    const invigilators = assignInvigilators();
-    const invigilatorList = [];
-  
-    for (const examName in invigilators) {
-      const examInvigilators = invigilators[examName];
-  
-      invigilatorList.push(
-        <li key={examName}>
-          <h3>{examName}</h3>
-          <ul>
-            {examInvigilators.map((invigilator, index) => (
-              <li key={index}>
-                {invigilator.teacher} - {invigilator.dutyDate}, {invigilator.dutyTime}
-              </li>
-            ))}
-          </ul>
-        </li>
-      );
-    }
-  
-    return (
-      <div>
-        <h2>Invigilators</h2>
-        <ul>{invigilatorList}</ul>
-      </div>
-    );
+    setSchedule(examSchedule);
   };
 
   return (
     <div>
       <h2>Scheduler</h2>
-      {handleSchedule()}
+      <button onClick={scheduleExams}>Schedule</button>
+      <ul>
+        {schedule.map(({ exam, teachers }, index) => (
+          <li key={index}>
+            <div>Exam: {exam.name}</div>
+            <div>Date: {exam.date}</div>
+            <div>Time: {exam.time}</div>
+            <div>
+              Invigilators:{" "}
+              {teachers.map((teacher) => teacher.name).join(", ")}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
 
 export default Scheduler;
