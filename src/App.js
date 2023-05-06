@@ -12,7 +12,7 @@ function App() {
       <Layout /> {/* Use the Layout component here */}
       <div className='container mt-5'>
         <Routes>
-          <Route path='/' element={<Home/>} />
+          <Route path='/exam-scheduler' element={<Home/>} />
           <Route path='/teachers' element={<TeacherComponent />} />
           <Route path='/exams' element={<ExamComponent />} />
           <Route path='/teacherschedule' element={<TeacherSchedule />} />
