@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/exam-scheduler/static/css/main.cbc79b75.css",
+    "main.js": "/exam-scheduler/static/js/main.53624148.js",
+    "index.html": "/exam-scheduler/index.html",
+    "main.cbc79b75.css.map": "/exam-scheduler/static/css/main.cbc79b75.css.map",
+    "main.53624148.js.map": "/exam-scheduler/static/js/main.53624148.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cbc79b75.css",
+    "static/js/main.53624148.js"
+  ]
+}
