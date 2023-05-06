@@ -4,18 +4,18 @@ const Layout = () => {
   return (
     <>
       <nav>
-        <ul>
+        <ul className="menu container">
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/teachers">Teachers</Link>
+            <Link to="/teachers"> Teachers</Link>
           </li>
           <li>
             <Link to="/exams">Exams</Link>
           </li>
           <li>
-            <Link to="/schedule">Scheduler</Link>
+            <Link to="/teacherschedule">Teacher Schedule</Link>
           </li>
         </ul>
       </nav>

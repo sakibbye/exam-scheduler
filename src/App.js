@@ -1,19 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import TeacherComponent from './components/assign';
-import ExamComponent from './components/form';
-import Scheduler from './components/display';
+import TeacherComponent from './components/addTeachers';
+import ExamComponent from './components/addExams';
+import TeacherSchedule from './components/teacherExam';
+import Home from './components/home';
 import Layout from './components/layout';
 
 function App() {
   return (
     <BrowserRouter>
       <Layout /> {/* Use the Layout component here */}
-      <div className='container border border-primary rounded mt-5'>
+      <div className='container mt-5'>
         <Routes>
+          <Route path='/' element={<Home/>} />
           <Route path='/teachers' element={<TeacherComponent />} />
           <Route path='/exams' element={<ExamComponent />} />
-          <Route path='/schedule' element={<Scheduler />} />
+          <Route path='/teacherschedule' element={<TeacherSchedule />} />
         </Routes>
       </div>
     </BrowserRouter>
