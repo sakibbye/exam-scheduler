@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/exam-scheduler/static/css/main.cbc79b75.css",
-    "main.js": "/exam-scheduler/static/js/main.53624148.js",
+    "main.js": "/exam-scheduler/static/js/main.92ad916a.js",
     "index.html": "/exam-scheduler/index.html",
     "main.cbc79b75.css.map": "/exam-scheduler/static/css/main.cbc79b75.css.map",
-    "main.53624148.js.map": "/exam-scheduler/static/js/main.53624148.js.map"
+    "main.92ad916a.js.map": "/exam-scheduler/static/js/main.92ad916a.js.map"
   },
   "entrypoints": [
     "static/css/main.cbc79b75.css",
-    "static/js/main.53624148.js"
+    "static/js/main.92ad916a.js"
   ]
 }
