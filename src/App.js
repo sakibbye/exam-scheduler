@@ -13,9 +13,9 @@ function App() {
       <div className='container mt-5'>
         <Routes>
           <Route path='/exam-scheduler' element={<Home/>} />
-          <Route path='/teachers' element={<TeacherComponent />} />
-          <Route path='/exams' element={<ExamComponent />} />
-          <Route path='/teacherschedule' element={<TeacherSchedule />} />
+          <Route path='/exam-scheduler/teachers' element={<TeacherComponent />} />
+          <Route path='/exam-scheduler/exams' element={<ExamComponent />} />
+          <Route path='/exam-scheduler/teacherschedule' element={<TeacherSchedule />} />
         </Routes>
       </div>
     </BrowserRouter>
